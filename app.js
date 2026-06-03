@@ -367,7 +367,7 @@ function renderHome(){
 
 function optCard(color,id,emoji,icon,title,sub){
   const onclick = id==="support"
-    ? `Telegram.WebApp.openTelegramLink('https://t.me/m/4zf79WGpMmQ1')`
+    ? `Telegram.WebApp.openTelegramLink('https://t.me/m/0JhxsfdOYjE1')`
     : `chooseOption('${id}')`;
   return `<button class="opt-card ${color}" onclick="${onclick}">
     <div class="opt-inner">
@@ -454,7 +454,7 @@ function renderProcessing(){
 
 function renderResult(){
   const lock = S.failReason==="device_mismatch";
-  const contactAdmin = `Telegram.WebApp.openTelegramLink('https://t.me/m/4zf79WGpMmQ1')`;
+  const contactAdmin = `Telegram.WebApp.openTelegramLink('https://t.me/m/0JhxsfdOYjE1')`;
   const registerOfficial = `window.open('https://www.yaarwin0.com/#/register?invitationCode=127571920010','_blank')`;
 
   if (!lock) {
