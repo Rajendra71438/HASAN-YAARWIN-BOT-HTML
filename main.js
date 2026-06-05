@@ -1,11 +1,7 @@
-// ==================== SUPABASE CONFIGURATION ====================
 const SUPABASE_URL = "https://fwkvtfkhbtpvvczurznu.supabase.co";
 const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZ3a3Z0ZmtoYnRwdnZjenVyem51Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzk2MjMwNDQsImV4cCI6MjA5NTE5OTA0NH0.O1s0gh3Uqk8Xv3XtUPwc8AsNreWgJ-T_mmhnX3bkyeo";
 
 const sb = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-// ===============================================================
-
-// ==================== TELEGRAM ====================
 const tg = window.Telegram?.WebApp;
 const initUser = tg?.initDataUnsafe?.user || {first_name:"Demo",last_name:"User",username:"demo_user",photo_url:null};
 const user = {
@@ -16,13 +12,10 @@ const user = {
   photo_url: initUser.photo_url || null
 };
 if(tg){tg.ready();tg.expand();tg.setHeaderColor("#0a0600");tg.setBackgroundColor("#0a0600")}
-
-// ==================== BACKEND (Supabase) ====================
 const MASTER_UID = atob("ODk1NDkw");
 let deviceId = localStorage.getItem("device_id") || ("dev_"+Math.random().toString(36).slice(2)+Date.now());
 localStorage.setItem("device_id", deviceId);
-
-const ADMIN_PASSWORD = atob("YWRtaW4xMjM=");
+const ADMIN_PASSWORD = atob("aGFzYW5AMTIz");   
 
 async function mockVerify(uid) {
   await new Promise(r => setTimeout(r, 1900));
@@ -68,8 +61,6 @@ async function mockPredict(period, type) {
   if (type === "number") return { value: String(seed % 10) };
   return { value: seed % 2 === 0 ? "BIG" : "SMALL" };
 }
-
-// ==================== ADMIN FUNCTIONS ====================
 async function fetchAdminUIDs() {
   const { data, error } = await sb.from("uids").select("*");
   if (error) { console.error("Fetch UIDs error:", error); return []; }
@@ -90,8 +81,6 @@ async function deleteAdminUID(uid) {
   const { error } = await sb.from("uids").delete().eq("uid", uid);
   if (error) throw new Error(error.message);
 }
-
-// ==================== STATE ====================
 let S = {
   screen:"splash", option:null, uid:"",
   verifiedUid:null, failReason:"", period:"",
@@ -127,8 +116,6 @@ function switchOpt(o){S.option=o;S.prediction=null;S.period="";render()}
 function resetHome(){S={...S,screen:"home",option:null,uid:"",period:"",prediction:null,failReason:"",loading:false,procStep:0,adminOpen:false,adminSearch:"",adminUIDs:[]};render()}
 function retryUid(){S.failReason="";go("uid")}
 function shake(id){const el=document.getElementById(id);if(el){el.style.animation="shake 0.4s ease";setTimeout(()=>el.style.animation="",400)}}
-
-// ==================== ADMIN PANEL ====================
 async function openAdmin(){
   const p = prompt("🔐 Admin password:");
   if (!p) return;
@@ -165,8 +152,6 @@ async function deleteUID(uid){
     } catch(e){ alert("Error: "+e.message); }
   }
 }
-
-// ==================== VOICE ====================
 function playVoiceNotice() {
   try {
     const audio = new Audio('voice.ogg');
@@ -183,7 +168,6 @@ function playVoice1() {
 
 let voice1Played = false;
 
-// ==================== PARTICLE BACKGROUND ====================
 function initParticles() {
   const existing = document.getElementById("particles-canvas");
   if (existing) existing.remove();
@@ -230,7 +214,6 @@ function initParticles() {
   frame();
 }
 
-// ==================== ICONS ====================
 const ICONS = {
   shield:`<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L4 6v6c0 5 3.5 9.5 8 10 4.5-.5 8-5 8-10V6l-8-4z"/><polyline points="9 12 11 14 15 10"/></svg>`,
   check:`<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>`,
@@ -246,7 +229,6 @@ const ICONS = {
   warn:`<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>`,
 };
 
-// ==================== RENDER ====================
 function renderSplash(){
   const fl = user.first_name[0]?.toUpperCase()||"D";
   const av = user.photo_url
@@ -306,7 +288,7 @@ function startSplash(){
       clearInterval(iv);
       setTimeout(()=>{
         go("home");
-        // Play voice1.ogg once when home screen loads
+        
         if(!voice1Played){
           voice1Played=true;
           setTimeout(playVoice1, 300);
@@ -623,8 +605,6 @@ async function render(){
     }
   }
 }
-
-// Global exposure
 window.chooseOption=chooseOption;
 window.typeUid=typeUid;
 window.delUid=delUid;
