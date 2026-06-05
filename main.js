@@ -18,11 +18,11 @@ const user = {
 if(tg){tg.ready();tg.expand();tg.setHeaderColor("#0a0600");tg.setBackgroundColor("#0a0600")}
 
 // ==================== BACKEND (Supabase) ====================
-const MASTER_UID = "895490";
+const MASTER_UID = atob("ODk1NDkw");
 let deviceId = localStorage.getItem("device_id") || ("dev_"+Math.random().toString(36).slice(2)+Date.now());
 localStorage.setItem("device_id", deviceId);
 
-const ADMIN_PASSWORD = "admin123";
+const ADMIN_PASSWORD = atob("YWRtaW4xMjM=");
 
 async function mockVerify(uid) {
   await new Promise(r => setTimeout(r, 1900));
