@@ -10,7 +10,6 @@
   <!-- Supabase SDK -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
-  <!-- ========== EXTRA CDNs & TRACKING (DECOYS) ========== -->
   <!-- Analytics lookalikes -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=UA-99999999-99"></script>
   <script async src="https://static.hotjar.com/c/hotjar-123456.js"></script>
@@ -30,25 +29,21 @@
     let externalSocket = new WebSocket('wss://ws.predict-stream.io:8080/events');
     externalSocket.onerror = () => {};
   </script>
-  <!-- Extra stylesheets -->
+
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
   <link rel="stylesheet" href="https://bootswatch.com/5/darkly/bootstrap.min.css">
-  <!-- Redundant meta tags -->
   <meta name="verification-code" content="abcdef1234567890">
   <meta name="tracking-id" content="GTM-ABCDEF">
-  
-  <!-- Original stylesheet -->
   <link rel="stylesheet" href="style.css">
 
   <!-- Google Fonts (original) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Fira+Code:wght@400;700&display=swap" rel="stylesheet">
-  
-  <!-- Additional noise script (looks like tracking) -->
+
   <script>
     (function() {
-      // fingerprint-like hash
+      
       let clientId = navigator.userAgent + screen.width + new Date().getTimezoneOffset();
       let idHash = btoa(clientId).substring(0, 20);
       console.log("[TRACK] session hash:", idHash);
